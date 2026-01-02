@@ -644,20 +644,22 @@ void gra_trudna(int gra[], char gra2[]){
 	int row, number, number2, number3, number4;
 	int solution = 0;
 	char column;
-	vector<short> directions(3, vector<short>(3)) = {
+	vector<vector<short>> directions(3, vector<short>(3));
+
+	directions = {
 		{0,0,0},
 		{0,-1,0},
-		{0,0,0},
-	}
+		{0,0,0}
+	};
 
 	for(int i = 0; i>=0; i++){
-		directions[3][3] = {
+		directions = {
 			{0,0,0},
 			{0,-1,0},
-			{0,0,0},
-		}
+			{0,0,0}
+		};
 
-		number3 = '0';
+		number3 = '0'; // ? wtf is this
 		number2 = 0;
 		column = 'n';
 		number = 0;
