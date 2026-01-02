@@ -2,20 +2,21 @@
 // Created by rytui on 02/01/2026.
 //
 
-#include<iostream> /*cout, cin, do while(), etc.*/
-#include<time.h> /*Do wyznaczania czasu*/
-#include<cstdlib> /*Do wyznaczania liczb randomowych pseudolosowych*/
-#include<stdlib.h> /*Do usuwania treści konsoli, oraz do funkcji sleep.*/
+#include<iostream>
+#include<time.h>
+#include<cstdlib>
+#include<stdlib.h>
+#include<vector>
 
 using namespace std;
 
 char difficulty(char diff){
-	/*Do wyboru poziomu trudności. Wszystko będzie napisane po angielsku, ponieważ dawaliśmy kolegom z innych kraju do przetestowania, czy finalnie działa ^^.*/
+	/*Do wyboru poziomu trudności. Wszystko będzie napisane po angielsku, ponieważ dawaliśmy kolegom z innych krajow do przetestowania, czy finalnie działa ^^.*/
 	do{
 		cout<<"Choose the level difficulty: "<<endl
-		<<"A - Easy (8x8) - 10 bombs"<<endl
-		<<"B - Medium (12x12) - 24 bombs"<<endl
-		<<"C - Hard (16x16) - 44 bombs"<<endl;
+		<<"A - Easy (8x8) - 10 bombs"<<endl // 15.625%
+		<<"B - Medium (12x12) - 24 bombs"<<endl // 16.67%
+		<<"C - Hard (16x16) - 44 bombs"<<endl; // 17.1875%
 		cin>>diff;
 	}
 	/*Jeżeli inne od wartości: A, B, C.*/
@@ -643,42 +644,28 @@ void gra_trudna(int gra[], char gra2[]){
 	int row, number, number2, number3, number4;
 	int solution = 0;
 	char column;
-	bool top_left, left = false;
-	bool bottom_left, bottom = false;
-	bool bottom_right, right = false;
-	bool top_right, top = false;
+	vector<short> directions(3, vector<short>(3)) = {
+		{0,0,0},
+		{0,-1,0},
+		{0,0,0},
+	}
 
 	for(int i = 0; i>=0; i++){
-		bool top_left, left = false;
-		bool bottom_left, bottom = false;
-		bool bottom_right, right = false;
-		bool top_right, top = false;
+		directions[3][3] = {
+			{0,0,0},
+			{0,-1,0},
+			{0,0,0},
+		}
+
 		number3 = '0';
 		number2 = 0;
 		column = 'n';
 		number = 0;
 		do{
-			cout<<endl<<"Type in the letter of the column: ";
+			cout<<"\nLetter of chosen column: ";
 			cin>>column;
 		}
-		while(
-		column != 'A' && column != 'a' &&
-		column != 'B' && column != 'b' &&
-		column != 'C' && column != 'c' &&
-		column != 'D' && column != 'd' &&
-		column != 'E' && column != 'e' &&
-		column != 'F' && column != 'f' &&
-		column != 'G' && column != 'g' &&
-		column != 'H' && column != 'h' &&
-		column != 'I' && column != 'i' &&
-		column != 'J' && column != 'j' &&
-		column != 'K' && column != 'k' &&
-		column != 'L' && column != 'l' &&
-		column != 'M' && column != 'm' &&
-		column != 'N' && column != 'n' &&
-		column != 'O' && column != 'o' &&
-		column != 'P' && column != 'p'
-		);
+		while(!(column >= 'A' && column <= 'P') && !(column >= 'a' && column <= 'p'));
 
 		do{
 			cout<<endl<<"Type in the number of the row: ";
@@ -686,71 +673,14 @@ void gra_trudna(int gra[], char gra2[]){
 		}
 		while(row > 16 && row <= 0);
 
+		if(column >= 'A' && column <= 'P'){
+			number = column - 'A';
+			number4 = column - 'A';
+		}
 
-
-		if(column == 'A' || column == 'a'){
-			number = 0;
-			number4 = 0;
-		}
-		if(column == 'B' || column == 'b'){
-			number = 1;
-			number4 = 1;
-		}
-		if(column == 'C' || column == 'c'){
-			number = 2;
-			number4 = 2;
-		}
-		if(column == 'D' || column == 'd'){
-			number = 3;
-			number4 = 3;
-		}
-		if(column == 'E' || column == 'e'){
-			number = 4;
-			number4 = 4;
-		}
-		if(column == 'F' || column == 'f'){
-			number = 5;
-			number4 = 5;
-		}
-		if(column == 'G' || column == 'g'){
-			number = 6;
-			number4 = 6;
-		}
-		if(column == 'H' || column == 'h'){
-			number = 7;
-			number4 = 7;
-		}
-		if(column == 'I' || column == 'i'){
-			number = 8;
-			number4 = 8;
-		}
-		if(column == 'J' || column == 'j'){
-			number = 9;
-			number4 = 9;
-		}
-		if(column == 'K' || column == 'k'){
-			number = 10;
-			number4 = 10;
-		}
-		if(column == 'L' || column == 'l'){
-			number = 11;
-			number4 = 11;
-		}
-		if(column == 'M' || column == 'm'){
-			number = 12;
-			number4 = 12;
-		}
-		if(column == 'N' || column == 'n'){
-			number = 13;
-			number4 = 13;
-		}
-		if(column == 'O' || column == 'o'){
-			number = 14;
-			number4 = 14;
-		}
-		if(column == 'P' || column == 'p'){
-			number = 15;
-			number4 = 15;
+		if(column >= 'a' && column <= 'p'){
+			number = column - 'a';
+			number4 = column - 'a';
 		}
 
 		number = number + ((row-1)*16);
